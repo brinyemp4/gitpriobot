@@ -1,7 +1,9 @@
+"use strict";
 require("dotenv").config();
 const axios = require("axios");
 const express = require("express");
 const app = express();
+const serverless = require("serverless-http");
 app.use(express.json());
 
 const telegram_url = "https://api.telegram.org/bot" + process.env.TELEGRAM_API_TOKEN +"/sendMessage";
@@ -51,6 +53,8 @@ app.post("/start_bot", function(req, res) {
     }
 });
 
-app.listen(process.env.PORT, () => {
-    console.log(`Server was started on port: ${process.env.PORT}`);
-});
+// app.listen(process.env.PORT, () => {
+//     console.log(`Server was started on port: ${process.env.PORT}`);
+// });
+
+module.exports.handler = serverless(app);
